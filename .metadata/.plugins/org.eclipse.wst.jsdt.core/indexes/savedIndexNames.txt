@@ -1,0 +1,4 @@
+INDEX VERSION 1.4+\\wsl.localhost\Ubuntu\home\aaron\CS336\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+378753145.index
+987315862.index
+2150236587.index
