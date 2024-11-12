@@ -160,7 +160,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="\\wsl.localhost\Ubuntu\home\aaron\CS336\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="\\wsl.localhost\Ubuntu\home\aaron\CS336\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject" path="/FinalProject" reloadable="true" source="org.eclipse.jst.jee.server:FinalProject"/><Context docBase="\\wsl.localhost\Ubuntu\home\aaron\CS336\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProjectTEST" path="/FinalProjectTEST" reloadable="true" source="org.eclipse.jst.jee.server:FinalProjectTEST"/></Host>
+      <Context docBase="\\wsl.localhost\Ubuntu\home\aaron\CS336\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="\\wsl.localhost\Ubuntu\home\aaron\CS336\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FinalProject" path="/FinalProject" reloadable="true" source="org.eclipse.jst.jee.server:FinalProject"/></Host>
     </Engine>
   </Service>
 </Server>

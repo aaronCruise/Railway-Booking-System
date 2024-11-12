@@ -10,7 +10,7 @@
 
 <h1> Hello! Please Login </h1>
 
-<form method="post">
+<form method="post" action = "UserLoggedIn.jsp">
 	Username: <input type = "text" name = "username"> <br/>
 	Password: <input type = "text" name = "password"> <br/>
 	<input type = "submit" value = "submit" />
