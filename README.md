@@ -13,10 +13,10 @@
 
 3. Configure project to use your database. (not needed yet)
 
-    - in `ApplicationDB.java`, line 36, change `"root", "root"` to your database's username and password.
+    - in `ApplicationDB.java`, line 14-15, change the corresponding Strings to your local database's username and password. 
 
 4. Run the project.
 
     - Right click project folder -> Run As -> Run on Server
 
-    - You should see the basic login page I created.
+    - Try out the login/logout functionality.
