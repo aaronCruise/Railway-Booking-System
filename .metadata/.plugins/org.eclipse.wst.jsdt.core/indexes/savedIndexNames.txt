@@ -3,8 +3,6 @@ INDEX VERSION 1.4+\\wsl.localhost\Ubuntu\home\aaron\CS336\.metadata\.plugins\org
 378753145.index
 3008019386.index
 71910889.index
-1722310401.index
-2150236587.index
 2150236587.index
 3385691627.index
 1249075448.index
