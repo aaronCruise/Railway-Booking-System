@@ -6,6 +6,7 @@
 
 <%
 	Connection conn = null;
+	String registration = request.getParameter("")
 
 	try {
 		// Get database connection
