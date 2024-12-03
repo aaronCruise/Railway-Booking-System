@@ -10,12 +10,12 @@
 
 	<h1> Admin-Level Functions</h1>
 
-	<h2>Show All Customer Representatives</h2>
+	<h2> Show All Customer Representatives</h2>
 	<form method="post" action="EmployeeList.jsp">
 		<input type="submit" value="Show Employees" />
 	</form>
 
-	<h2>Manage Customer Representatives</h2>
+	<h2> Manage Customer Representatives</h2>
 
 	<!-- Add Employee -->
 	<form method="post" action="AdminPage.jsp">
@@ -51,6 +51,7 @@
 		<input type="submit" value="Clear All Employees" /> 
 	</form>
 	<br />
+	
 	<%
 	
 	String action = request.getParameter("action");
@@ -127,5 +128,27 @@
 	
 	%>
 
+	<h2> Monthly Revenue </h2>
+	<form method="post" action="MonthlyRevenue.jsp">
+		<input type="submit" value="Show Revenue per Month" />
+	</form>
+	
+	<h2> Reservations List </h2>
+	<form method="post" action="ReservationList.jsp">
+    <label>
+        <input type="radio" name="filterBy" value="line" required /> Filter by Transit Line
+    </label>
+    <br />
+    <label>
+        <input type="radio" name="filterBy" value="name" required /> Filter by Name
+    </label>
+    <br />
+    <label>
+        Input: <input type="text" name="input" required />
+    </label>
+    <br />
+    <input type="submit" value="Show Reservations" />
+</form>
+	
 </body>
 </html>

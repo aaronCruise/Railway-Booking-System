@@ -18,13 +18,23 @@ CREATE TABLE employees
     pass VARCHAR(20)
 );
 
+CREATE TABLE transitlines
+(
+    lineName VARCHAR(50) PRIMARY KEY,
+    fare FLOAT,
+    numStops INTEGER,
+    travelTime INTEGER
+);
+
 CREATE TABLE reservationHas
 (
     rnumber INTEGER PRIMARY KEY,
     date DATETIME,
     totalFare FLOAT,
+    transitLine VARCHAR(50),
     passenger VARCHAR(30),
     email VARCHAR(30),
+    FOREIGN KEY (transitLine) REFERENCES transitlines(lineName),
     FOREIGN KEY(email) REFERENCES customers(email)
 );
 
@@ -39,14 +49,6 @@ CREATE TABLE oversees
 CREATE TABLE trains
 (
     tid int PRIMARY KEY
-);
-
-CREATE TABLE transitlines
-(
-    lineName VARCHAR(50) PRIMARY KEY,
-    fare FLOAT,
-    numStops INTEGER,
-    travelTime INTEGER
 );
 
 CREATE TABLE stations
