@@ -1,3 +1,4 @@
+DROP DATABASE Transit_System;
 CREATE DATABASE Transit_System;
 USE Transit_System;
 CREATE TABLE customers
@@ -90,7 +91,7 @@ INSERT INTO employees
 VALUES
     ("1", "admin", "John", "Doe", "mypass", "admin");
 
-INSERT INTO employeees
+INSERT INTO employees
 VALUES
     ("2", "CustRep", "Jane", "Doe", "mypass", "CustRep")
 
