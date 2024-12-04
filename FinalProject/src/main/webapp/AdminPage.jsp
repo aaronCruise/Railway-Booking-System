@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.cs336.pkg.ApplicationDB, java.sql.*"%>
+	pageEncoding="UTF-8" import="com.cs336.pkg.*, java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,7 +140,7 @@
     </label>
     <br />
     <label>
-        <input type="radio" name="filterBy" value="name" required /> Filter by Name
+        <input type="radio" name="filterBy" value="name" required /> Filter by Customer Last Name
     </label>
     <br />
     <label>
@@ -148,7 +148,41 @@
     </label>
     <br />
     <input type="submit" value="Show Reservations" />
+    </form>
+    
+    <h2> Revenue List </h2>
+	<form method="post" action="RevenueList.jsp">
+    <label>
+        <input type="radio" name="filterBy" value="line" required /> Filter by Transit Line
+    </label>
+    <br />
+    <label>
+        <input type="radio" name="filterBy" value="name" required /> Filter by Customer Last Name
+    </label>
+    <br />
+    <label>
+        Input: <input type="text" name="input" required />
+    </label>
+    <br />
+    <input type="submit" value="Show Revenue" />
 </form>
+	<h2> Best Customer </h2>
+	<p> The customer that generated the most total revenue is: 
+	<strong><%= new FindBestCustomer().getBestCustomer()%></strong></p>
+	<form method="post" action="AdminPage.jsp">
+	<button type="submit">Refresh</button>
+	</form>
+	
+	<h2> Top 5 Most Active Transit Lines </h2>
+	<p> The transit lines with the most reservations per month are:
+	<strong><%= new FindTopActiveLines().getTopActiveLines()%></strong></p>
+	<form method="post" action="AdminPage.jsp">
+	<button type="submit">Refresh</button>
+	</form>
+	
+	
+
+
 	
 </body>
 </html>
