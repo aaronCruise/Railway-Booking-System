@@ -17,9 +17,9 @@ VALUES
     
 INSERT INTO employees
 VALUES
-    ('123-45-6789', 'empjohn', 'Michael', 'Scott', 'dundermifflin'),
-    ('987-65-4321', 'empjane', 'Pam', 'Beesly', 'secureemp'),
-    ('555-55-5555', 'empharry', 'Harry', 'Potter', 'gryffindor');
+    ('123-45-6789', 'empjohn', 'Michael', 'Scott', 'dundermifflin', 'custRep'),
+    ('987-65-4321', 'empjane', 'Pam', 'Beesly', 'secureemp', 'custRep'),
+    ('555-55-5555', 'empharry', 'Harry', 'Potter', 'gryffindor', 'custRep');
 
 insert into reservationHas values (1, '2024-01-15 10:30:00', 50.75, 'ny', 'John', 'doe@rutgers.edu'),
 (2, '2024-02-20 14:45:00', 75.00,'ny', 'John', 'doe@rutgers.edu'),

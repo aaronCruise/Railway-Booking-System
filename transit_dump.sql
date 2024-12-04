@@ -91,7 +91,7 @@ INSERT INTO employees
 VALUES
     ("1", "admin", "John", "Doe", "mypass", "admin");
 
-INSERT INTO employeees
+INSERT INTO employees
 VALUES
     ("2", "CustRep", "Jane", "Doe", "mypass", "CustRep")
 

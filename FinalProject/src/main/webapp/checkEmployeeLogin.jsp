@@ -39,8 +39,13 @@
 			// Store username in current user session
 			session.setAttribute("username", username);
 
-			// Redirect to welcome page
-			response.sendRedirect("WelcomePage.jsp");
+			// Redirect to correct page
+			if (result.getString("role").equals("admin")) {
+				response.sendRedirect("AdminPage.jsp");
+			}
+			else {
+				response.sendRedirect("WelcomePage.jsp");
+			}
 		}
 		// Login failure
 		else {
