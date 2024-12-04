@@ -15,7 +15,8 @@ CREATE TABLE employees
     username VARCHAR(20),
     fname VARCHAR(20),
     lname VARCHAR(20),
-    pass VARCHAR(20)
+    pass VARCHAR(20),
+    role VARCHAR(20)
 );
 
 CREATE TABLE transitlines
@@ -85,8 +86,18 @@ CREATE TABLE destination
 );
 
 
-INSERT INTO customers
+INSERT INTO employees
 VALUES
-    (
-        "doe@rutgers.edu", "johnnyboy", "John", "Doe", "mypass");
+    ("1", "admin", "John", "Doe", "mypass", "admin");
+
+INSERT INTO employeees
+VALUES
+    ("2", "CustRep", "Jane", "Doe", "mypass", "CustRep")
+
+
+
+-- INSERT INTO customers
+-- VALUES
+--     (
+--         "doe@rutgers.edu", "johnnyboy", "John", "Doe", "mypass");
 

@@ -7,12 +7,7 @@
 <%
 	Connection conn = null;
 
-	String registration = request.getParameter("Register");
 	String back = request.getParameter("back");
-	
-	if("Register".equals(registration)){
-		response.sendRedirect("registration.jsp");
-	}
 	
 	if("Go Back".equals(back)){
 		response.sendRedirect("LoginPage.jsp");
@@ -32,8 +27,8 @@
 		Statement stmt = conn.createStatement();
 
 		// Create a select query
-		String str = "SELECT * FROM customers WHERE" + " customers.username = \"" + username + "\""
-		+ " AND customers.pass = \"" + password + "\"";
+		String str = "SELECT * FROM employees WHERE" + " employees.username = \"" + username + "\""
+		+ " AND employees.pass = \"" + password + "\"";
 
 		// Run the query against the database
 		ResultSet result = stmt.executeQuery(str);
@@ -49,7 +44,7 @@
 		}
 		// Login failure
 		else {
-			response.sendRedirect("InvalidCredsPage.jsp");
+			response.sendRedirect("LoginPage.jsp");
 		}
 	} catch (Exception e) {
 		out.print(e);
