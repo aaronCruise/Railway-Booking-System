@@ -4,11 +4,10 @@
 <title>Login Page</title>
 </head>
 <body>
-	<h1>Hello! Please Login</h1>
-	<form method="post" action="checkLoginCreds.jsp">
-		Username: <input type="text" name="username"> <br />
-		Password: <input type="text" name="password"> <br /> 
-		<input type="submit" value="submit" />
+	<h1>Hello! Select the Correct Login</h1>
+	<form method="post" action="redirectLogin.jsp">
+		<input type="submit" name="userType" value="Customer"> <br/>
+		<input type="submit" name="userType" value="Employee">
 	</form>
 </body>
 </html>
