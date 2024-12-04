@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>List of All Customer Representatives</title>
 </head>
+<h1>List of All Customer Representatives</h1>
 <%
 Connection conn = null;
 
@@ -99,6 +100,5 @@ try {
 	<form method="post" action="AdminPage.jsp">
 		<input type="submit" value="Go Back" />
 	</form>
-
 </body>
 </html>

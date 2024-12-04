@@ -8,181 +8,126 @@
 </head>
 <body>
 
-	<h1> Admin-Level Functions</h1>
+	<h1>Admin-Level Functions</h1>
 
-	<h2> Show All Customer Representatives</h2>
+	<h2>Show All Customer Representatives</h2>
 	<form method="post" action="EmployeeList.jsp">
 		<input type="submit" value="Show Employees" />
 	</form>
 
-	<h2> Manage Customer Representatives</h2>
-
+	<h2>Manage Customer Representatives</h2>
 	<!-- Add Employee -->
 	<form method="post" action="AdminPage.jsp">
-		<input type="hidden" name="action" value="add" /> 
-		Employee SSN: <input type="text" id="essn" name="essn" required /> <br />
-		First Name: <input type="text" id="fname" name="fname" required /> <br />
-		Last Name: <input type="text" id="lname" name="lname" required /> <br />
-		<input type="submit" value="Add Employee" /> <br />
+		<input type="hidden" name="action" value="add" /> Employee SSN: <input
+			type="text" id="essn" name="essn" required /> <br /> First Name: <input
+			type="text" id="fname" name="fname" required /> <br /> Last Name: <input
+			type="text" id="lname" name="lname" required /> <br /> <input
+			type="submit" value="Add Employee" /> <br />
 	</form>
 	<br />
 
 	<!-- Delete Employee -->
 	<form method="post" action="AdminPage.jsp">
-		<input type="hidden" name="action" value="delete" /> 
-		Employee SSN: <input type="text" id="essn" name="essn" required /> <br />
-		<input type="submit" value="Delete Employee" /><br />
+		<input type="hidden" name="action" value="delete" /> Employee SSN: <input
+			type="text" id="essn" name="essn" required /> <br /> <input
+			type="submit" value="Delete Employee" /><br />
 	</form>
 	<br />
 
 	<!-- Edit Employee -->
 	<form method="post" action="AdminPage.jsp">
-		<input type="hidden" name="action" value="edit" /> 
-		Employee SSN: <input type="text" id="essn" name="essn" required /> <br />
-		First Name: <input type="text" id="fname" name="fname" /> <br />
-		Last Name: <input type="text" id="lname" name="lname" /> <br />
-		<input type="submit" value="Change Employee Info" /> <br />
+		<input type="hidden" name="action" value="edit" /> Employee SSN: <input
+			type="text" id="essn" name="essn" required /> <br /> First Name: <input
+			type="text" id="fname" name="fname" /> <br /> Last Name: <input
+			type="text" id="lname" name="lname" /> <br /> <input type="submit"
+			value="Change Employee Info" /> <br />
 	</form>
 	<br />
-	
+
 	<!-- Clear All Employees -->
 	<form method="post" action="AdminPage.jsp">
-		<input type="hidden" name="action" value="clear">
-		<input type="submit" value="Clear All Employees" /> 
+		<input type="hidden" name="action" value="clear"> <input
+			type="submit" value="Clear All Employees" />
 	</form>
 	<br />
-	
+
+
+	<!-- Handle managing customer representatives -->
 	<%
-	
 	String action = request.getParameter("action");
+	String essn = request.getParameter("essn");
+	String fName = request.getParameter("fname");
+	String lName = request.getParameter("lname");
+	ManageCustomerReps repManager = null;
 	
 	if (action != null) {
-		Connection conn = null;
-		
 		try {
-			// Get database connection
-			ApplicationDB db = new ApplicationDB();
-			conn = db.getConnection();
-			Statement stmt = conn.createStatement();
-
-			// Create and execute SQL statement
-			String essn = request.getParameter("essn");
-			String fName = request.getParameter("fname");
-			String lName = request.getParameter("lname");
-			PreparedStatement str;
-			
-			switch (action) {
-				case "add":	
-					str = conn.prepareStatement(
-							"INSERT INTO employees (essn, fname, lname) VALUES (?, ?, ?)");
-					str.setString(1, essn);
-					str.setString(2, fName);
-					str.setString(3, lName);
-					str.executeUpdate();
-					break;
-				case "delete":
-					str = conn.prepareStatement("DELETE FROM employees" + 
-							" WHERE essn = ?");
-					str.setString(1, essn);
-					str.executeUpdate();
-					break;
-				case "edit":
-					if (fName != null) {
-						str = conn.prepareStatement("UPDATE employees SET " + 
-								"fname = ? WHERE essn = " + essn);
-						str.setString(1, fName);
-						str.executeUpdate();
-					}
-					if (lName != null) {
-						str = conn.prepareStatement("UPDATE employees SET " + 
-								"lname = ? WHERE essn = " + essn);
-						str.setString(1, lName);
-						str.executeUpdate();
-					}
-					break;
-				case "clear":
-					stmt.executeUpdate("DELETE FROM employees");
-					break;	
-			}
-			
-
-			// Create a select query
-			String all = "SELECT * FROM employees";
-
-			// Run the query against the database
-			ResultSet result = stmt.executeQuery(all);
-
-		} catch (SQLIntegrityConstraintViolationException e) {
+			repManager = new ManageCustomerReps();
+			repManager.handleEmployeeEdit(action, essn, fName, lName);
+			out.println("<p style='color: green;'>Success!</p>");
+		}
+		catch (SQLIntegrityConstraintViolationException e) {
 			out.println("<p style='color: red;'> The ESSN already exists. </p>");
 		}
 		catch (SQLException e) {
 			 out.println("<p style='color: red;'>A database error occurred: " + e.getMessage() + "</p>");
-		} finally { // Make sure to close connection to DB
-			if (conn != null) {
-				conn.close();
-			}
 		}
-		
+		catch (Exception e) {
+			out.println("<p style='color: red;'>An error occurred: " + e.getMessage() + "</p>");
+		}
 	}
-	
-	
 	%>
 
-	<h2> Monthly Revenue </h2>
+	<h2>Monthly Revenue</h2>
 	<form method="post" action="MonthlyRevenue.jsp">
 		<input type="submit" value="Show Revenue per Month" />
 	</form>
-	
-	<h2> Reservations List </h2>
+
+	<h2>Reservations List</h2>
 	<form method="post" action="ReservationList.jsp">
-    <label>
-        <input type="radio" name="filterBy" value="line" required /> Filter by Transit Line
-    </label>
-    <br />
-    <label>
-        <input type="radio" name="filterBy" value="name" required /> Filter by Customer Last Name
-    </label>
-    <br />
-    <label>
-        Input: <input type="text" name="input" required />
-    </label>
-    <br />
-    <input type="submit" value="Show Reservations" />
-    </form>
-    
-    <h2> Revenue List </h2>
+		<label> 
+		<input type="radio" name="filterBy" value="line" required /> Filter by Transit Line
+		</label> <br /> 
+		<label> 
+		<input type="radio" name="filterBy" value="name" required /> Filter by Customer Last Name
+		</label> <br /> 
+		<label> 
+		Input: <input type="text" name="input" required />
+		</label> <br /> 
+		<input type="submit" value="Show Reservations" />
+	</form>
+
+	<h2>Revenue List</h2>
 	<form method="post" action="RevenueList.jsp">
-    <label>
-        <input type="radio" name="filterBy" value="line" required /> Filter by Transit Line
-    </label>
-    <br />
-    <label>
-        <input type="radio" name="filterBy" value="name" required /> Filter by Customer Last Name
-    </label>
-    <br />
-    <label>
-        Input: <input type="text" name="input" required />
-    </label>
-    <br />
-    <input type="submit" value="Show Revenue" />
-</form>
-	<h2> Best Customer </h2>
-	<p> The customer that generated the most total revenue is: 
-	<strong><%= new FindBestCustomer().getBestCustomer()%></strong></p>
-	<form method="post" action="AdminPage.jsp">
-	<button type="submit">Refresh</button>
+		<label> 
+		<input type="radio" name="filterBy" value="line" required /> Filter by Transit Line
+		</label> <br /> 
+		<label> 
+		<input type="radio" name="filterBy" value="name" required /> Filter by Customer Last Name
+		</label> <br /> 
+		<label> 
+		Input: <input type="text" name="input" required />
+		</label> <br /> 
+		<input type="submit" value="Show Revenue" />
 	</form>
-	
-	<h2> Top 5 Most Active Transit Lines </h2>
-	<p> The transit lines with the most reservations per month are:
-	<strong><%= new FindTopActiveLines().getTopActiveLines()%></strong></p>
-	<form method="post" action="AdminPage.jsp">
-	<button type="submit">Refresh</button>
-	</form>
-	
-	
 
 
-	
+	<h2>Best Customer</h2>
+	<p>
+		The customer that generated the most total revenue is: 
+		<strong><%= new FindBestCustomer().getBestCustomer()%></strong>
+	</p>
+	<form method="post" action="AdminPage.jsp">
+		<button type="submit">Refresh</button>
+	</form>
+
+	<h2>Top 5 Most Active Transit Lines</h2>
+	<p>
+		The transit lines with the most reservations per month are: 
+		<strong><%= new FindTopActiveLines().getTopActiveLines()%></strong>
+	</p>
+	<form method="post" action="AdminPage.jsp">
+		<button type="submit">Refresh</button>
+	</form>
 </body>
 </html>

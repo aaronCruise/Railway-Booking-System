@@ -1,3 +1,4 @@
+DROP DATABASE Transit_System;
 CREATE DATABASE Transit_System;
 USE Transit_System;
 CREATE TABLE customers

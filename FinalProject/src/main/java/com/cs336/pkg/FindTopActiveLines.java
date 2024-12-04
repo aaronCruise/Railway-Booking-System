@@ -17,20 +17,21 @@ public class FindTopActiveLines {
 		Connection conn = null;
 
 		try {
+			// Connect to database
 			ApplicationDB db = new ApplicationDB();
 			conn = db.getConnection();
 
+			// Create and execute SQL query
 			Statement stmt = conn.createStatement();
-
 			String query = "SELECT DISTINCT transitLine, "
 							+ "COUNT(*) AS numReservations " 
 							+ "FROM reservationHas "
 							+ "GROUP BY transitLine "
 							+ "ORDER BY numReservations DESC " 
 							+ "LIMIT " + NUM_TOP;
-
 			ResultSet rs = stmt.executeQuery(query);
 			
+			// Build result string
 			int index = 0;
 			while (rs.next() && index < NUM_TOP) {
 				topLines += rs.getString("transitLine") + ", ";
