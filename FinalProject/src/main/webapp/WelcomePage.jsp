@@ -26,24 +26,50 @@
 
 	<h2> Browse and Search Train Schedules </h2>
 	<form method="post" action="ScheduleList.jsp" >
-		Filter by Origin:
+		<input type="submit" value="Show Schedules" />
+		
+		<h3> Filter by: </h3>
+		Origin:
 		<select name="originInput"> 
 		<option value=""> Select Origin Station </option>
 		<%= new GenerateStations().generateStations() %>
 		</select> <br /> 
 		
-		Filter by Destination:
+		Destination:
 		<select name="destInput"> 
 		<option value=""> Select Destination Station </option>
 		<%= new GenerateStations().generateStations() %>
 		</select> <br /> 
 		
-		Filter by Travel Date:
+		Train Number:
+		<select name="trainIDInput"> 
+		<option value=""> Select Train Number </option>
+		<%= new GenerateTrainIDs().generateTrainIDs() %>
+		</select> <br />
+		
+		Travel Date:
 		<input type="text" name="dateInput" placeholder="YYYY-MM-DD"/> <br /> 
 		
-		<input type="submit" value="Show Schedules" />
+		<h3> Sort By: </h3>
+		<label> 
+		<input type="radio" name="sortBy" value="line"/> Transit Line Name
+		</label> <br /> 
+		<label> 
+		<input type="radio" name="sortBy" value="startStationName"/> Start Station
+		</label> <br /> 
+		<label> 
+		<input type="radio" name="sortBy" value="endStationName"/> End Station
+		</label> <br />
+		<label> 
+		<input type="radio" name="sortBy" value="departureTime"/> Departure Time
+		</label> <br />
+		<label> 
+		<input type="radio" name="sortBy" value="arrivalTime"/> Arrival Time
+		</label> <br />
+		<label> 
+		<input type="radio" name="sortBy" value="fare"/> Fare
+		</label> <br />
 	</form>
-
 </body>
 </html>
 
