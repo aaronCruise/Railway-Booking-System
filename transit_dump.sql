@@ -1,6 +1,7 @@
 DROP DATABASE Transit_System;
 CREATE DATABASE Transit_System;
 USE Transit_System;
+
 CREATE TABLE customers
 (
     email VARCHAR(30) PRIMARY KEY,
@@ -20,12 +21,28 @@ CREATE TABLE employees
     role VARCHAR(20)
 );
 
+CREATE TABLE trains
+(
+    tid INT PRIMARY KEY
+);
+
+CREATE TABLE stations
+(
+    sid INTEGER PRIMARY KEY,
+    states VARCHAR(50),
+    cityName VARCHAR(50)
+);
+
 CREATE TABLE transitlines
 (
     lineName VARCHAR(50) PRIMARY KEY,
     fare FLOAT,
     numStops INTEGER,
-    travelTime INTEGER
+    travelTime INTEGER,
+    origin INTEGER,
+    destination INTEGER,
+    FOREIGN KEY (origin) REFERENCES stations(sid),
+    FOREIGN KEY (destination) REFERENCES stations(sid)
 );
 
 CREATE TABLE reservationHas
@@ -40,65 +57,52 @@ CREATE TABLE reservationHas
     FOREIGN KEY(email) REFERENCES customers(email)
 );
 
-CREATE TABLE oversees
-(
-    email VARCHAR(30) PRIMARY KEY,
-    rnumber INTEGER,
-    FOREIGN KEY (email) REFERENCES customers(email),
-    FOREIGN KEY (rnumber) REFERENCES reservationHas(rnumber)
-);
-
-CREATE TABLE trains
-(
-    tid int PRIMARY KEY
-);
-
-CREATE TABLE stations
-(
-    sid INTEGER PRIMARY KEY,
-    states VARCHAR(50),
-    cityName VARCHAR(50)
-);
-
 CREATE TABLE schedules
 (
-    lineName VARCHAR(50) PRIMARY KEY,
-    sid INTEGER,
-    tid INTEGER,
+	scheduleID INTEGER PRIMARY KEY,	
+    lineName VARCHAR(50),			-- the transit line that this schedule is part of
+    startStation INTEGER,			-- origin station for the schedule. can be any of the stops within the transit line
+    endStation INTEGER,				-- destination station for the schedule. "
+    tid INTEGER,					-- train assigned to this schedule
+    departureTime DATETIME,			-- for startStation
+    arrivalTime DATETIME,			-- for endStation
     FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
-    FOREIGN KEY(sid) REFERENCES stations(sid),
+    FOREIGN KEY(startStation) REFERENCES stations(sid),
+    FOREIGN KEY(endStation) REFERENCES stations(sid),
     FOREIGN KEY(tid) REFERENCES trains(tid)
 );
 
-CREATE TABLE origin
-(
-    lineName VARCHAR(50),
-    sid INTEGER PRIMARY KEY,
-    FOREIGN KEY (lineName) REFERENCES transitlines(lineName),
-    FOREIGN KEY (sid) REFERENCES stations(sid)
-);
+-- Unnecessary tables as of now. Can be deleted if they're not used.
+-- CREATE TABLE origin
+-- (
+--     lineName VARCHAR(50),
+--     sid INTEGER PRIMARY KEY,
+--     FOREIGN KEY (lineName) REFERENCES transitlines(lineName),
+--     FOREIGN KEY (sid) REFERENCES stations(sid)
+-- );
 
-CREATE TABLE destination
-(
-    lineName VARCHAR(50),
-    sid INTEGER PRIMARY KEY,
-    FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
-    FOREIGN KEY (sid) REFERENCES stations(sid)
-);
+-- CREATE TABLE destination
+-- (
+--     lineName VARCHAR(50),
+--     sid INTEGER PRIMARY KEY,
+--     FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
+--     FOREIGN KEY (sid) REFERENCES stations(sid)
+-- );
 
+-- CREATE TABLE oversees
+-- (
+--     email VARCHAR(30) PRIMARY KEY,
+--     rnumber INTEGER,
+--     FOREIGN KEY (email) REFERENCES customers(email),
+--     FOREIGN KEY (rnumber) REFERENCES reservationHas(rnumber)
+-- );
 
+-- Initial credentials for testing
 INSERT INTO employees
 VALUES
-    ("1", "admin", "John", "Doe", "mypass", "admin");
-
-INSERT INTO employees
+    ("1", "admin", "John", "Doe", "mypass", "admin"),
+    ("2", "CustRep", "Jane", "Doe", "mypass", "CustRep");
+    
+INSERT INTO customers(email, username, pass)
 VALUES
-    ("2", "CustRep", "Jane", "Doe", "mypass", "CustRep")
-
-
-
--- INSERT INTO customers
--- VALUES
---     (
---         "doe@rutgers.edu", "johnnyboy", "John", "Doe", "mypass");
-
+	("email@domain.com", "user", "pass");

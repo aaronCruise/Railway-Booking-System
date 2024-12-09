@@ -1,53 +1,105 @@
-use transit_system;
-show tables;
+-- Some dummy data for testing purposes
+USE transit_system;
 
-INSERT INTO transitlines
+INSERT INTO customers (email, username, fname, lname, pass)
 VALUES
-    ('Route 1', 2.5, 10, 30),
-    ('Route 2', 3.0, 12, 40),
-    ('Route 3', 1.5, 8, 20),
-    ('ny', 2, 9, 32);
-    
-INSERT INTO customers
-VALUES
--- 	('doe@rutgers.edu', 'johnnyboy', 'John', 'Doe', 'mypass'),
+	('doe@rutgers.edu', 'johnnyboy', 'John', 'Doe', 'mypass'),
     ('jane@rutgers.edu', 'jane123', 'Jane', 'Smith', 'securepass'),
     ('alex@rutgers.edu', 'alexking', 'Alex', 'King', 'alexpass'),
     ('chris@rutgers.edu', 'chris', 'Chris', 'Johnson', 'chrispass');
     
-INSERT INTO employees
+INSERT INTO employees (essn, username, fname, lname, pass, role)
 VALUES
     ('123-45-6789', 'empjohn', 'Michael', 'Scott', 'dundermifflin', 'custRep'),
     ('987-65-4321', 'empjane', 'Pam', 'Beesly', 'secureemp', 'custRep'),
     ('555-55-5555', 'empharry', 'Harry', 'Potter', 'gryffindor', 'custRep');
-
-insert into reservationHas values (1, '2024-01-15 10:30:00', 50.75, 'ny', 'John', 'doe@rutgers.edu'),
-(2, '2024-02-20 14:45:00', 75.00,'ny', 'John', 'doe@rutgers.edu'),
-(3, '2024-03-10 09:00:00', 60.25,'ny',  'John', 'doe@rutgers.edu'),
-(4, '2024-01-25 16:15:00', 85.50,'ny',  'John', 'doe@rutgers.edu'),
-(5, '2024-02-05 12:00:00', 90.00,'ny',  'John', 'doe@rutgers.edu'),
-(6, '2024-03-15 20:00:00', 45.00,'ny', 'John', 'doe@rutgers.edu'),
-(7, '2024-04-10 10:00:00', 30.50, 'Route 1', 'Jane', 'jane@rutgers.edu'),
-(8, '2024-05-12 11:30:00', 40.75, 'Route 2', 'Jane', 'jane@rutgers.edu'),
-(9, '2024-06-15 09:45:00', 35.00, 'Route 3', 'Jane', 'jane@rutgers.edu'),
-(10, '2024-04-20 13:20:00', 65.25, 'Route 1', 'Jane', 'jane@rutgers.edu'),
-(11, '2024-05-25 14:50:00', 50.00, 'Route 2', 'Jane', 'jane@rutgers.edu'),
-(12, '2024-06-30 16:40:00', 55.00, 'Route 3', 'Jane', 'jane@rutgers.edu'),
-(13, '2024-07-05 10:10:00', 25.00, 'Route 1', 'Alex', 'alex@rutgers.edu'),
-(14, '2024-07-15 18:30:00', 40.00, 'Route 2', 'Alex', 'alex@rutgers.edu'),
-(15, '2024-08-01 20:00:00', 35.50, 'Route 3', 'Alex', 'alex@rutgers.edu'),
-(16, '2024-07-10 12:45:00', 70.00, 'Route 1', 'Alex', 'alex@rutgers.edu'),
-(17, '2024-08-20 14:00:00', 80.50, 'Route 2', 'Alex', 'alex@rutgers.edu'),
-(18, '2024-09-15 08:30:00', 90.00, 'Route 3', 'Alex', 'alex@rutgers.edu'),
-(19, '2024-03-22 10:00:00', 25.75, 'Route 1', 'Chris', 'chris@rutgers.edu'),
-(20, '2024-04-02 15:30:00', 55.00, 'Route 2', 'Chris', 'chris@rutgers.edu'),
-(21, '2024-05-12 17:20:00', 60.25, 'Route 3', 'Chris', 'chris@rutgers.edu'),
-(22, '2024-03-15 14:50:00', 45.50, 'Route 1', 'Chris', 'chris@rutgers.edu'),
-(23, '2024-04-20 11:30:00', 85.00, 'Route 2', 'Chris', 'chris@rutgers.edu'),
-(24, '2024-05-25 12:15:00', 95.50, 'Route 3', 'Chris', 'chris@rutgers.edu'),
-(25, '2024-01-10 09:00:00', 50.00, 'Route 1', 'John', 'doe@rutgers.edu'),
-(26, '2024-02-14 13:45:00', 75.00, 'Route 1', 'John', 'doe@rutgers.edu'),
-(27, '2024-03-20 16:15:00', 100.00, 'Route 1', 'John', 'doe@rutgers.edu'),
-(28, '2024-01-18 10:30:00', 50.75, 'Route 2', 'Jane', 'jane@rutgers.edu'),
-(29, '2024-02-22 14:45:00', 75.00, 'Route 2', 'Jane', 'jane@rutgers.edu'),
-(30, '2024-03-18 09:00:00', 60.25, 'Route 2', 'Jane', 'jane@rutgers.edu');
+    
+INSERT INTO stations (sid, states, cityName)
+VALUES
+    (1, 'New Jersey', 'Trenton'),
+    (2, 'New York', 'New York'),
+    (3, 'Pennsylvania', 'Philadelphia'),
+    (4, 'Delaware', 'Wilmington'),
+    (5, 'New Jersey', 'Princeton'),
+    (6, 'New York', 'Brooklyn'),
+    (7, 'Connecticut', 'Stamford'),
+    (8, 'Massachusetts', 'Boston'),
+    (9, 'Virginia', 'Richmond'),
+    (10, 'Maryland', 'Baltimore'),
+    (11, 'New Jersey', 'Newark'),
+    (12, 'Connecticut', 'New Haven'),
+    (13, 'Massachusetts', 'Cambridge'),
+    (14, 'Pennsylvania', 'Pittsburgh'),
+    (15, 'Delaware', 'Dover');
+    
+INSERT INTO trains (tid)
+VALUES
+    (101),
+    (102),
+    (103),
+    (104),
+    (105),
+    (106),
+    (107),
+    (108),
+    (109),
+    (110);
+    
+INSERT INTO transitlines (lineName, fare, numStops, travelTime, origin, destination)
+VALUES
+    ('Route 1', 50.00, 5, 120, 1, 2),
+    ('Route 2', 60.00, 6, 150, 2, 3),
+    ('Route 3', 40.00, 4, 90, 3, 4),
+    ('Route 4', 55.00, 5, 110, 4, 5),
+    ('Route 5', 65.00, 7, 180, 5, 6),
+    ('Route 6', 55.00, 6, 130, 6, 7),
+    ('Route 7', 70.00, 6, 140, 7, 8),
+    ('Route 8', 80.00, 8, 200, 8, 9),
+    ('Route 9', 45.00, 5, 110, 9, 10),
+    ('Route 10', 75.00, 7, 160, 10, 11);
+    
+INSERT INTO schedules (scheduleID, lineName, startStation, endStation, tid, departureTime, arrivalTime)
+VALUES
+    (1, 'Route 1', 1, 2, 101, '2024-01-01 08:00:00', '2024-01-01 10:00:00'),
+    (2, 'Route 1', 2, 3, 102, '2024-01-01 10:30:00', '2024-01-01 12:30:00'),
+    (3, 'Route 2', 2, 3, 103, '2024-01-01 09:00:00', '2024-01-01 11:30:00'),
+    (4, 'Route 2', 3, 4, 104, '2024-01-01 12:00:00', '2024-01-01 14:30:00'),
+    (5, 'Route 3', 3, 4, 105, '2024-01-01 08:30:00', '2024-01-01 10:00:00'),
+    (6, 'Route 3', 4, 5, 106, '2024-01-01 09:30:00', '2024-01-01 11:00:00'),
+    (7, 'Route 4', 4, 5, 107, '2024-01-01 07:30:00', '2024-01-01 09:00:00'),
+    (8, 'Route 4', 5, 6, 108, '2024-01-01 10:00:00', '2024-01-01 12:00:00'),
+    (9, 'Route 5', 5, 6, 109, '2024-01-01 08:00:00', '2024-01-01 10:00:00'),
+    (10, 'Route 5', 6, 7, 110, '2024-01-01 09:30:00', '2024-01-01 11:30:00'),
+    (11, 'Route 6', 6, 7, 101, '2024-01-02 08:00:00', '2024-01-02 10:00:00'),
+    (12, 'Route 6', 7, 8, 102, '2024-01-02 10:30:00', '2024-01-02 12:30:00'),
+    (13, 'Route 7', 7, 8, 103, '2024-01-02 09:00:00', '2024-01-02 11:00:00'),
+    (14, 'Route 7', 8, 9, 104, '2024-01-02 11:30:00', '2024-01-02 13:30:00'),
+    (15, 'Route 8', 8, 9, 105, '2024-01-02 08:00:00', '2024-01-02 10:30:00'),
+    (16, 'Route 8', 9, 10, 106, '2024-01-02 10:00:00', '2024-01-02 12:00:00'),
+    (17, 'Route 9', 9, 10, 107, '2024-01-02 08:30:00', '2024-01-02 10:00:00'),
+    (18, 'Route 9', 10, 11, 108, '2024-01-02 09:00:00', '2024-01-02 11:00:00'),
+    (19, 'Route 10', 10, 11, 109, '2024-01-02 08:00:00', '2024-01-02 10:30:00'),
+    (20, 'Route 10', 11, 12, 110, '2024-01-02 09:30:00', '2024-01-02 11:30:00');  
+ 	
+INSERT INTO reservationHas (rnumber, date, totalFare, transitLine, passenger, email)
+VALUES
+    (1, '2024-01-01 07:30:00', 50.00, 'Route 1', 'John Doe', 'doe@rutgers.edu'),
+    (2, '2024-01-01 09:00:00', 60.00, 'Route 2', 'Jane Smith', 'jane@rutgers.edu'),
+    (3, '2024-01-01 11:30:00', 40.00, 'Route 3', 'Alex King', 'alex@rutgers.edu'),
+    (4, '2024-01-01 12:30:00', 55.00, 'Route 4', 'Chris Johnson', 'chris@rutgers.edu'),
+    (5, '2024-01-01 08:00:00', 65.00, 'Route 5', 'John Doe', 'doe@rutgers.edu'),
+    (6, '2024-01-01 10:30:00', 55.00, 'Route 6', 'Jane Smith', 'jane@rutgers.edu'),
+    (7, '2024-01-01 12:00:00', 70.00, 'Route 7', 'Alex King', 'alex@rutgers.edu'),
+    (8, '2024-01-01 09:30:00', 80.00, 'Route 8', 'Chris Johnson', 'chris@rutgers.edu'),
+    (9, '2024-01-02 08:00:00', 45.00, 'Route 9', 'John Doe', 'doe@rutgers.edu'),
+    (10, '2024-01-02 10:30:00', 75.00, 'Route 10', 'Jane Smith', 'jane@rutgers.edu'),
+    (11, '2024-01-02 08:30:00', 50.00, 'Route 1', 'Alex King', 'alex@rutgers.edu'),
+    (12, '2024-01-02 09:00:00', 60.00, 'Route 2', 'Chris Johnson', 'chris@rutgers.edu'),
+    (13, '2024-01-02 11:00:00', 40.00, 'Route 3', 'John Doe', 'doe@rutgers.edu'),
+    (14, '2024-01-02 01:00:00', 55.00, 'Route 4', 'Jane Smith', 'jane@rutgers.edu'),
+    (15, '2024-01-02 07:30:00', 65.00, 'Route 5', 'Alex King', 'alex@rutgers.edu'),
+    (16, '2024-01-02 09:15:00', 55.00, 'Route 6', 'Chris Johnson', 'chris@rutgers.edu'),
+    (17, '2024-01-02 10:00:00', 70.00, 'Route 7', 'John Doe', 'doe@rutgers.edu'),
+    (18, '2024-01-02 08:30:00', 80.00, 'Route 8', 'Jane Smith', 'jane@rutgers.edu'),
+    (19, '2024-01-02 09:00:00', 45.00, 'Route 9', 'Alex King', 'alex@rutgers.edu'),
+    (20, '2024-01-02 10:00:00', 75.00, 'Route 10', 'Chris Johnson', 'chris@rutgers.edu');
