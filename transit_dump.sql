@@ -1,4 +1,4 @@
-DROP DATABASE Transit_System;
+DROP DATABASE IF EXISTS Transit_System;
 CREATE DATABASE Transit_System;
 USE Transit_System;
 
@@ -59,17 +59,35 @@ CREATE TABLE reservationHas
 
 CREATE TABLE schedules
 (
-	scheduleID INTEGER PRIMARY KEY,	
-    lineName VARCHAR(50),			-- the transit line that this schedule is part of
-    startStation INTEGER,			-- origin station for the schedule. can be any of the stops within the transit line
-    endStation INTEGER,				-- destination station for the schedule. "
-    tid INTEGER,					-- train assigned to this schedule
-    departureTime DATETIME,			-- for startStation
-    arrivalTime DATETIME,			-- for endStation
+    scheduleID INTEGER PRIMARY KEY,
+    lineName VARCHAR(50),
+    -- the transit line that this schedule is part of
+    startStation INTEGER,
+    -- origin station for the schedule. can be any of the stops within the transit line
+    endStation INTEGER,
+    -- destination station for the schedule. "
+    tid INTEGER,
+    -- train assigned to this schedule
+    departureTime DATETIME,
+    -- for startStation
+    arrivalTime DATETIME,
+    -- for endStation
     FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
     FOREIGN KEY(startStation) REFERENCES stations(sid),
     FOREIGN KEY(endStation) REFERENCES stations(sid),
     FOREIGN KEY(tid) REFERENCES trains(tid)
+);
+
+
+CREATE TABLE posts
+(
+    postID INTEGER PRIMARY KEY,
+    question VARCHAR(256),
+    answer VARCHAR(256),
+    email VARCHAR(30),
+    username VARCHAR(20) NULL,
+    FOREIGN KEY(email) REFERENCES customers(email),
+    FOREIGN KEY(username) REFERENCES employees(username)
 );
 
 -- Unnecessary tables as of now. Can be deleted if they're not used.
@@ -102,7 +120,8 @@ INSERT INTO employees
 VALUES
     ("1", "admin", "John", "Doe", "mypass", "admin"),
     ("2", "CustRep", "Jane", "Doe", "mypass", "CustRep");
-    
-INSERT INTO customers(email, username, pass)
+
+INSERT INTO customers
+    (email, username, pass)
 VALUES
-	("email@domain.com", "user", "pass");
+    ("email@domain.com", "user", "pass");

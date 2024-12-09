@@ -41,10 +41,11 @@
 
 			// Redirect to correct page
 			if (result.getString("role").equals("admin")) {
+				session.setAttribute("first_name", result.getString("uname"));
 				response.sendRedirect("AdminPage.jsp");
 			}
 			else {
-				response.sendRedirect("WelcomePage.jsp");
+				response.sendRedirect("CustRepPage.jsp");
 			}
 		}
 		// Login failure
