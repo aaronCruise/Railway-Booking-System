@@ -26,6 +26,25 @@
 	}
 %>
 
+<h2>Edit Information on Train Schedule</h2>
+
+
+
+
+
+<h2> Questions </h2>
+
+<h3> Unanswered Questions </h3>
+
+<h3> All Questions Questions </h3>
+<form method="post" action="QnA.jsp">
+	<input type="">
+
+</form>
+
+
+
+
 
 
 </body>

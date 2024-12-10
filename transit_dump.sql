@@ -86,34 +86,10 @@ CREATE TABLE posts
     answer VARCHAR(256),
     email VARCHAR(30),
     username VARCHAR(20) NULL,
-    FOREIGN KEY(email) REFERENCES customers(email),
-    FOREIGN KEY(username) REFERENCES employees(username)
+    postedAt DATETIME,
+    answeredAt DATETIME NULL,
+    FOREIGN KEY(email) REFERENCES customers(email)
 );
-
--- Unnecessary tables as of now. Can be deleted if they're not used.
--- CREATE TABLE origin
--- (
---     lineName VARCHAR(50),
---     sid INTEGER PRIMARY KEY,
---     FOREIGN KEY (lineName) REFERENCES transitlines(lineName),
---     FOREIGN KEY (sid) REFERENCES stations(sid)
--- );
-
--- CREATE TABLE destination
--- (
---     lineName VARCHAR(50),
---     sid INTEGER PRIMARY KEY,
---     FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
---     FOREIGN KEY (sid) REFERENCES stations(sid)
--- );
-
--- CREATE TABLE oversees
--- (
---     email VARCHAR(30) PRIMARY KEY,
---     rnumber INTEGER,
---     FOREIGN KEY (email) REFERENCES customers(email),
---     FOREIGN KEY (rnumber) REFERENCES reservationHas(rnumber)
--- );
 
 -- Initial credentials for testing
 INSERT INTO employees

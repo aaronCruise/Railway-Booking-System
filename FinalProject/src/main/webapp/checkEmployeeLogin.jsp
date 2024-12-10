@@ -41,7 +41,6 @@
 
 			// Redirect to correct page
 			if (result.getString("role").equals("admin")) {
-				session.setAttribute("first_name", result.getString("uname"));
 				response.sendRedirect("AdminPage.jsp");
 			}
 			else {
