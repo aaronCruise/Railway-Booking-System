@@ -24,6 +24,11 @@
 	}
 %>
 
+	<h2>Make a Reservation</h2>
+	<form method="post" action="makeReservation.jsp">
+		<input type="submit" value="Make Reservation"/>
+	</form>
+
 	<h2> Browse and Search Train Schedules </h2>
 	<form method="post" action="ScheduleList.jsp" >
 		<input type="submit" value="Show Schedules" />
