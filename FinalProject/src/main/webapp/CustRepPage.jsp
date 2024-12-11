@@ -36,11 +36,27 @@
 
 <h3> Unanswered Questions </h3>
 
-<h3> All Questions Questions </h3>
-<form method="post" action="QnA.jsp">
-	<input type="">
-
+<form method="post" action="QNA.jsp" >
+		<h3>Get all Questions</h3>
+		<input type="submit" name = "questionDump" value="Browse All Questions">
+		<input type="submit" name = "unans" value="See all unanswered">
+<br />
 </form>
+
+<form method="post" action="QNA.jsp" >
+		<h3>Get all Questions</h3>
+		<input type="submit" name = "questionDump" value="Browse All Questions">
+		<input type="submit" name = "unans" value="See all unanswered">
+<br />
+</form>
+<form method="post" action="submitAnswer.jsp" >
+		<h3>Answer Question</h3>
+		<input type="text" name = "postID" placeholder="PostID">
+		<input type="text" name = "answer" placeholder="Answer">
+		<input type="submit" name = "submit" value="Submit">
+<br />
+</form>
+
 
 
 

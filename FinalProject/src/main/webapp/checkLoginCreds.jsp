@@ -40,9 +40,10 @@
 
 		// Login successful
 		if (result.next()) {
-
+			String email = result.getString("email");
 			// Store username in current user session
 			session.setAttribute("username", username);
+			session.setAttribute("email",email);
 
 			// Redirect to welcome page
 			response.sendRedirect("WelcomePage.jsp");

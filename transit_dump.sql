@@ -81,13 +81,12 @@ CREATE TABLE schedules
 
 CREATE TABLE posts
 (
-    postID INTEGER PRIMARY KEY,
+    postID INTEGER PRIMARY KEY AUTO_INCREMENT,
     question VARCHAR(256),
     answer VARCHAR(256),
     email VARCHAR(30),
-    username VARCHAR(20) NULL,
     postedAt DATETIME,
-    answeredAt DATETIME NULL,
+    answeredAt DATETIME DEFAULT NULL,
     FOREIGN KEY(email) REFERENCES customers(email)
 );
 

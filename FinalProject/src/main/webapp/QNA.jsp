@@ -15,7 +15,7 @@
 </head>
 <%
 Connection conn = null;
-String keywords = request.getParameter("keywords");
+String unans = request.getParameter("unans");
 
 
 
@@ -26,13 +26,13 @@ try {
 
 	// Create SQL statement
 	Statement stmt = conn.createStatement();
-	String query = "SELECT posts.question, posts.answer,posts.postedAt  " +
+	String query = "SELECT posts.postID, posts.question, posts.answer,posts.postedAt  " +
 					"FROM posts ";
 
-	if (keywords != null && !keywords.equals("")) {
-		query += "WHERE posts.question LIKE '%" + keywords + "%'";
+
+	if (unans != null && !unans.equals("")) {
+		query += "WHERE posts.answer = ''";
 	}
-	
 
 
 
@@ -44,6 +44,7 @@ try {
 
 	// Table header
 	out.print("<tr>");
+	out.print("<td>PostID</td>");
 	out.print("<td>Question</td>");
 	out.print("<td>Answer</td>");
 	out.print("<td>Posted At</td>");
@@ -53,6 +54,9 @@ try {
 	while (result.next()) {
 		//make a row
 		out.print("<tr>");
+		out.print("<td>");
+		out.print(result.getInt("postID"));
+		out.print("</td>");
 
 		out.print("<td>");
 		out.print(result.getString("question"));
@@ -81,7 +85,7 @@ try {
 %>
 
 <body>
-	<form method="post" action="WelcomePage.jsp">
+	<form method="post" action="CustRepPage.jsp">
 		<input type="submit" value="Go Back" />
 	</form>
 </body>
