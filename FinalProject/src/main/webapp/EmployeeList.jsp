@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>List of All Customer Representatives</title>
+<style>
+	table {
+		width: 100%;
+	}	
+</style>
 </head>
 <h1>List of All Customer Representatives</h1>
 <%
@@ -28,30 +33,30 @@ try {
 	ResultSet result = stmt.executeQuery(str);
 
 	//Make an HTML table to show the results in:
-	out.print("<table>");
+	out.print("<table border='1'>");
 
 	//make a row
 	out.print("<tr>");
 	//make a column
 	out.print("<td>");
 	//print out column header
-	out.print("essn");
+	out.print("<b> ESSN </b>");
 	out.print("</td>");
 	//make a column
 	out.print("<td>");
-	out.print("username");
+	out.print("<b> USERNAME </b>");
 	out.print("</td>");
 	//make a column
 	out.print("<td>");
-	out.print("fname");
+	out.print("<b> FIRST NAME </b>");
 	out.print("</td>");
 	//make a column
 	out.print("<td>");
-	out.print("lname");
+	out.print("<b> LAST NAME </b>");
 	out.print("</td>");
 	//make a column
 	out.print("<td>");
-	out.print("pass");
+	out.print("<b> PASSWORD </b> ");
 	out.print("</td>");
 
 	out.print("</tr>");

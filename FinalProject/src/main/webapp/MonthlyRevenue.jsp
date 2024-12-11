@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>List of All Customer Representatives</title>
+<style>
+	table {
+		width: 100%;
+	}	
+</style>
 </head>
 <%
 Connection conn = null;
@@ -31,18 +36,18 @@ try {
 	ResultSet result = stmt.executeQuery(str);
 
 	//Make an HTML table to show the results in:
-	out.print("<table>");
+	out.print("<table border='1'>");
 
 	//make a row
 	out.print("<tr>");
 	//make a column
 	out.print("<td>");
 	//print out column header
-	out.print("month");
+	out.print("<b> MONTH </b>");
 	out.print("</td>");
 	//make a column
 	out.print("<td>");
-	out.print("revenue");
+	out.print("<b> REVENUE </b>");
 	out.print("</td>");
 
 	out.print("</tr>");

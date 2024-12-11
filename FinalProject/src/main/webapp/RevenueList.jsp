@@ -8,12 +8,18 @@
 <meta charset="UTF-8">
 
 <title>List of Filtered Revenue</title>
+<style>
+	table {
+		width: 50%;
+	}	
+</style>
 </head>
 
 <%
 Connection conn = null;
 String filterBy = request.getParameter("filterBy");
-String input = request.getParameter("input");
+String lineInput = request.getParameter("lineInput");
+String custNameInput = request.getParameter("custNameInput");
 
 try {
 	// Get database connection
@@ -21,7 +27,7 @@ try {
 	conn = db.getConnection();
 
 	// Create SQL statement
-	PreparedStatement stmt;
+	PreparedStatement stmt = null;
 	String query = "";
 
 	if (filterBy != null) {
@@ -35,18 +41,62 @@ try {
 			+ "GROUP BY passenger ";
 		}
 	}
-
-	stmt = conn.prepareStatement(query);
-	stmt.setString(1, input);
+	
+	if (filterBy != null) {
+		if (filterBy.equals("line")) {
+			if (lineInput == null || lineInput == "") {
+				out.println("<h4> No Transit Line Selected. Showing All Revenue </h4>");
+				query = "SELECT transitLine, SUM(totalFare) as Revenue "
+						+ "FROM reservationHas "
+					 	+ "GROUP BY transitLine ";
+				stmt = conn.prepareStatement(query);
+			}
+			else {
+				query = "SELECT transitLine, SUM(totalFare) as Revenue "
+						+ "FROM reservationHas " + "WHERE transitLine = ? "
+						+ "GROUP BY transitLine ";
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, lineInput);
+			}
+		}
+		else if (filterBy.equals("name")) {
+			if (custNameInput == null || custNameInput == "") {
+				out.println("<h4> No Passenger Selected. Showing All Revenue </h4>");
+				query = "SELECT passenger, SUM(totalFare) as Revenue "
+						+ "FROM reservationHas "
+					 	+ "GROUP BY passenger ";
+				stmt = conn.prepareStatement(query);
+			}
+			else {
+				query = "SELECT passenger, SUM(totalFare) as Revenue "
+						+ "FROM reservationHas " + "WHERE passenger = ? "
+						+ "GROUP BY passenger ";
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, custNameInput);		
+			}
+		}
+			
+	}
 	ResultSet result = stmt.executeQuery();
 
 	//Make an HTML table to show the results in:
-	out.print("<table>");
+	out.print("<table border='1'>");
+	
+	// Table Header
+	out.print("<tr>");
+	if (filterBy != null && filterBy.equals("line")) {
+		out.print("<td><b> TRANSIT LINE </b> </td>");
+	}
+	else {
+		out.print("<td><b> PASSENGER </b> </td>");
+		
+	}
+	out.print("<td><b> REVENUE ($) </b> </td>");
+	out.print("</tr>");
 
 	if (filterBy != null) {
 		if (filterBy.equals("line")) {
-	out.print("<tr>");
-	out.print("<td>Transit Line</td>");
+		
 
 	while (result.next()) {
 		out.print("<tr>");
@@ -62,8 +112,6 @@ try {
 
 		} 
 		else {
-			out.print("<tr>");
-			out.print("<td>Passenger</td>");
 			
 			while (result.next()) {
 				out.print("<tr>");

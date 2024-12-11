@@ -8,11 +8,18 @@
 <head>
 <meta charset="UTF-8">
 <title>List of Filtered Reservations</title>
+<style>
+	table {
+		width: 100%;
+	}
+</style>
 </head>
 <%
 Connection conn = null;
 String filterBy = request.getParameter("filterBy");
-String input = request.getParameter("input");
+String lineInput = request.getParameter("lineInput");
+String custNameInput = request.getParameter("custNameInput");
+
 
 try {
 	// Get database connection
@@ -20,34 +27,50 @@ try {
 	conn = db.getConnection();
 
 	// Create SQL statement
-	PreparedStatement stmt;
+	PreparedStatement stmt = null;
 	String query = "";
 	
 	if (filterBy != null) {
 		if (filterBy.equals("line")) {
-			query = "SELECT * FROM reservationHas WHERE transitLine = ?";
+			if (lineInput == null || lineInput == "") {
+				out.println("<h4> No Transit Line Selected. Showing All Reservations </h4>");
+				query = "SELECT * FROM reservationHas";
+				stmt = conn.prepareStatement(query);
+			}
+			else {
+				query = "SELECT * FROM reservationHas WHERE transitLine = ?";
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, lineInput);
+			}
 		}
 		else if (filterBy.equals("name")) {
-			query = "SELECT * FROM reservationHas WHERE passenger = ? ";
+			if (custNameInput == null || custNameInput == "") {
+				out.println("<h4> No Passenger Selected. Showing All Reservations </h4>");
+				query = "SELECT * FROM reservationHas";
+				stmt = conn.prepareStatement(query);
+			}
+			else {
+				query = "SELECT * FROM reservationHas WHERE passenger = ? ";
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, custNameInput);		
+			}
 		}
+			
 	}
-	
-	stmt = conn.prepareStatement(query);
-	stmt.setString(1, input);
 	ResultSet result = stmt.executeQuery();
 	
 
 	//Make an HTML table to show the results in:
-	out.print("<table>");
+	out.print("<table border='1'>");
 	
 	// Table header
 	out.print("<tr>");
-	out.print("<td>Reservation Number</td>");
-	out.print("<td>Date</td>");
-	out.print("<td>Total Fare</td>");
-	out.print("<td>Transit Line</td>");
-	out.print("<td>Passenger Name</td>");
-	out.print("<td>Email</td>");
+	out.print("<td><b> RESERVATION NUMBER </b> </td>");
+	out.print("<td><b> DATE </b> </td>");
+	out.print("<td><b> TOTAL FARE </b> </td>");
+	out.print("<td><b> TRANSIT LINE </b> </td>");
+	out.print("<td><b> PASSENGER NAME </b> </td>");
+	out.print("<td><b> EMAIL </b> </td>");
 	out.print("</tr>");
 
 	//parse out the results
