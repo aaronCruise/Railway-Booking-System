@@ -44,7 +44,7 @@
 				response.sendRedirect("AdminPage.jsp");
 			}
 			else {
-				response.sendRedirect("WelcomePage.jsp");
+				response.sendRedirect("CustRepPage.jsp");
 			}
 		}
 		// Login failure

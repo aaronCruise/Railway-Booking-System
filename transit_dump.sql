@@ -1,4 +1,4 @@
-DROP DATABASE Transit_System;
+DROP DATABASE IF EXISTS Transit_System;
 CREATE DATABASE Transit_System;
 USE Transit_System;
 
@@ -59,50 +59,44 @@ CREATE TABLE reservationHas
 
 CREATE TABLE schedules
 (
-	scheduleID INTEGER PRIMARY KEY,	
-    lineName VARCHAR(50),			-- the transit line that this schedule is part of
-    startStation INTEGER,			-- origin station for the schedule. can be any of the stops within the transit line
-    endStation INTEGER,				-- destination station for the schedule. "
-    tid INTEGER,					-- train assigned to this schedule
-    departureTime DATETIME,			-- for startStation
-    arrivalTime DATETIME,			-- for endStation
+    scheduleID INTEGER PRIMARY KEY,
+    lineName VARCHAR(50),
+    -- the transit line that this schedule is part of
+    startStation INTEGER,
+    -- origin station for the schedule. can be any of the stops within the transit line
+    endStation INTEGER,
+    -- destination station for the schedule. "
+    tid INTEGER,
+    -- train assigned to this schedule
+    departureTime DATETIME,
+    -- for startStation
+    arrivalTime DATETIME,
+    -- for endStation
     FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
     FOREIGN KEY(startStation) REFERENCES stations(sid),
     FOREIGN KEY(endStation) REFERENCES stations(sid),
     FOREIGN KEY(tid) REFERENCES trains(tid)
 );
 
--- Unnecessary tables as of now. Can be deleted if they're not used.
--- CREATE TABLE origin
--- (
---     lineName VARCHAR(50),
---     sid INTEGER PRIMARY KEY,
---     FOREIGN KEY (lineName) REFERENCES transitlines(lineName),
---     FOREIGN KEY (sid) REFERENCES stations(sid)
--- );
 
--- CREATE TABLE destination
--- (
---     lineName VARCHAR(50),
---     sid INTEGER PRIMARY KEY,
---     FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
---     FOREIGN KEY (sid) REFERENCES stations(sid)
--- );
-
--- CREATE TABLE oversees
--- (
---     email VARCHAR(30) PRIMARY KEY,
---     rnumber INTEGER,
---     FOREIGN KEY (email) REFERENCES customers(email),
---     FOREIGN KEY (rnumber) REFERENCES reservationHas(rnumber)
--- );
+CREATE TABLE posts
+(
+    postID INTEGER PRIMARY KEY AUTO_INCREMENT,
+    question VARCHAR(256),
+    answer VARCHAR(256),
+    email VARCHAR(30),
+    postedAt DATETIME,
+    answeredAt DATETIME DEFAULT NULL,
+    FOREIGN KEY(email) REFERENCES customers(email)
+);
 
 -- Initial credentials for testing
 INSERT INTO employees
 VALUES
     ("1", "admin", "John", "Doe", "mypass", "admin"),
     ("2", "CustRep", "Jane", "Doe", "mypass", "CustRep");
-    
-INSERT INTO customers(email, username, pass)
+
+INSERT INTO customers
+    (email, username, pass)
 VALUES
-	("email@domain.com", "user", "pass");
+    ("email@domain.com", "user", "pass");
