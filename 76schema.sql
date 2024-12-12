@@ -40,34 +40,8 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES ('doe@rutgers.edu','johnnyboy','John','Doe','mypass');
+INSERT INTO `customers` VALUES ('email@domain.com','user',NULL,NULL,'pass');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `destination`
---
-
-DROP TABLE IF EXISTS `destination`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `destination` (
-  `lineName` varchar(50) DEFAULT NULL,
-  `sid` int NOT NULL,
-  PRIMARY KEY (`sid`),
-  KEY `lineName` (`lineName`),
-  CONSTRAINT `destination_ibfk_1` FOREIGN KEY (`lineName`) REFERENCES `transitlines` (`lineName`),
-  CONSTRAINT `destination_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `stations` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `destination`
---
-
-LOCK TABLES `destination` WRITE;
-/*!40000 ALTER TABLE `destination` DISABLE KEYS */;
-/*!40000 ALTER TABLE `destination` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -83,6 +57,7 @@ CREATE TABLE `employees` (
   `fname` varchar(20) DEFAULT NULL,
   `lname` varchar(20) DEFAULT NULL,
   `pass` varchar(20) DEFAULT NULL,
+  `role` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`essn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -93,59 +68,37 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES ('1','admin','John','Doe','mypass','admin'),('2','CustRep','Jane','Doe','mypass','CustRep');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `origin`
+-- Table structure for table `posts`
 --
 
-DROP TABLE IF EXISTS `origin`;
+DROP TABLE IF EXISTS `posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `origin` (
-  `lineName` varchar(50) DEFAULT NULL,
-  `sid` int NOT NULL,
-  PRIMARY KEY (`sid`),
-  KEY `lineName` (`lineName`),
-  CONSTRAINT `origin_ibfk_1` FOREIGN KEY (`lineName`) REFERENCES `transitlines` (`lineName`),
-  CONSTRAINT `origin_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `stations` (`sid`)
+CREATE TABLE `posts` (
+  `postID` int NOT NULL AUTO_INCREMENT,
+  `question` varchar(256) DEFAULT NULL,
+  `answer` varchar(256) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `postedAt` datetime DEFAULT NULL,
+  `answeredAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`postID`),
+  KEY `email` (`email`),
+  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`email`) REFERENCES `customers` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `origin`
+-- Dumping data for table `posts`
 --
 
-LOCK TABLES `origin` WRITE;
-/*!40000 ALTER TABLE `origin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `origin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `oversees`
---
-
-DROP TABLE IF EXISTS `oversees`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oversees` (
-  `email` varchar(30) NOT NULL,
-  `rnumber` int DEFAULT NULL,
-  PRIMARY KEY (`email`),
-  KEY `rnumber` (`rnumber`),
-  CONSTRAINT `oversees_ibfk_1` FOREIGN KEY (`email`) REFERENCES `customers` (`email`),
-  CONSTRAINT `oversees_ibfk_2` FOREIGN KEY (`rnumber`) REFERENCES `reservationhas` (`rnumber`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `oversees`
---
-
-LOCK TABLES `oversees` WRITE;
-/*!40000 ALTER TABLE `oversees` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oversees` ENABLE KEYS */;
+LOCK TABLES `posts` WRITE;
+/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -159,11 +112,14 @@ CREATE TABLE `reservationhas` (
   `rnumber` int NOT NULL,
   `date` datetime DEFAULT NULL,
   `totalFare` float DEFAULT NULL,
+  `transitLine` varchar(50) DEFAULT NULL,
   `passenger` varchar(30) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`rnumber`),
+  KEY `transitLine` (`transitLine`),
   KEY `email` (`email`),
-  CONSTRAINT `reservationhas_ibfk_1` FOREIGN KEY (`email`) REFERENCES `customers` (`email`)
+  CONSTRAINT `reservationhas_ibfk_1` FOREIGN KEY (`transitLine`) REFERENCES `transitlines` (`lineName`),
+  CONSTRAINT `reservationhas_ibfk_2` FOREIGN KEY (`email`) REFERENCES `customers` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -184,15 +140,22 @@ DROP TABLE IF EXISTS `schedules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `schedules` (
-  `lineName` varchar(50) NOT NULL,
-  `sid` int DEFAULT NULL,
+  `scheduleID` int NOT NULL,
+  `lineName` varchar(50) DEFAULT NULL,
+  `startStation` int DEFAULT NULL,
+  `endStation` int DEFAULT NULL,
   `tid` int DEFAULT NULL,
-  PRIMARY KEY (`lineName`),
-  KEY `sid` (`sid`),
+  `departureTime` datetime DEFAULT NULL,
+  `arrivalTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`scheduleID`),
+  KEY `lineName` (`lineName`),
+  KEY `startStation` (`startStation`),
+  KEY `endStation` (`endStation`),
   KEY `tid` (`tid`),
   CONSTRAINT `schedules_ibfk_1` FOREIGN KEY (`lineName`) REFERENCES `transitlines` (`lineName`),
-  CONSTRAINT `schedules_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `stations` (`sid`),
-  CONSTRAINT `schedules_ibfk_3` FOREIGN KEY (`tid`) REFERENCES `trains` (`tid`)
+  CONSTRAINT `schedules_ibfk_2` FOREIGN KEY (`startStation`) REFERENCES `stations` (`sid`),
+  CONSTRAINT `schedules_ibfk_3` FOREIGN KEY (`endStation`) REFERENCES `stations` (`sid`),
+  CONSTRAINT `schedules_ibfk_4` FOREIGN KEY (`tid`) REFERENCES `trains` (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -263,7 +226,13 @@ CREATE TABLE `transitlines` (
   `fare` float DEFAULT NULL,
   `numStops` int DEFAULT NULL,
   `travelTime` int DEFAULT NULL,
-  PRIMARY KEY (`lineName`)
+  `origin` int DEFAULT NULL,
+  `destination` int DEFAULT NULL,
+  PRIMARY KEY (`lineName`),
+  KEY `origin` (`origin`),
+  KEY `destination` (`destination`),
+  CONSTRAINT `transitlines_ibfk_1` FOREIGN KEY (`origin`) REFERENCES `stations` (`sid`),
+  CONSTRAINT `transitlines_ibfk_2` FOREIGN KEY (`destination`) REFERENCES `stations` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -285,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-15 13:47:47
+-- Dump completed on 2024-12-11 21:34:33

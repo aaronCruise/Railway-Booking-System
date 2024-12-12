@@ -14,6 +14,18 @@ public class ApplicationDB {
 	private static final String DB_USERNAME = "root";
 	private static final String DB_PASSWORD = "mirandagoat";
 
+	public String getConnectionUrl() {
+		return CONNECTION_URL;
+	}
+
+	public String getDbUsername() {
+		return DB_USERNAME;
+	}
+
+	public String getDbPassword() {
+		return DB_PASSWORD;
+	}
+
 	public Connection getConnection() {
 		try {
 			// Load JDBC driver - the interface standardizing the connection procedure. Look

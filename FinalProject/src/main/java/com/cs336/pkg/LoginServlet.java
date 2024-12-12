@@ -5,9 +5,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class LoginServlet extends HttpServlet {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/Transit_System";
-    private static final String DB_USER = "root";
-    private static final String DB_PASS = "mirandagoat"; // adjust as needed
+	private static final String DB_URL = new ApplicationDB().getConnectionUrl();
+    private static final String DB_USER = new ApplicationDB().getDbUsername();
+    private static final String DB_PASS = new ApplicationDB().getDbPassword();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
