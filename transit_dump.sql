@@ -90,6 +90,9 @@ CREATE TABLE posts
     FOREIGN KEY(email) REFERENCES customers(email)
 );
 
+ALTER TABLE reservationHas 
+MODIFY rnumber INT AUTO_INCREMENT;
+
 -- Initial credentials for testing
 INSERT INTO employees
 VALUES
