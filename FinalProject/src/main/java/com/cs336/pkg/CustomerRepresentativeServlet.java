@@ -7,9 +7,9 @@ import javax.servlet.http.*;
 
 
 public class CustomerRepresentativeServlet extends HttpServlet {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/Transit_System";
-    private static final String DB_USER = "root";
-    private static final String DB_PASS = "mirandagoat";
+	private static final String DB_URL = new ApplicationDB().getConnectionUrl();
+    private static final String DB_USER = new ApplicationDB().getDbUsername();
+    private static final String DB_PASS = new ApplicationDB().getDbPassword();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -61,17 +61,11 @@ CREATE TABLE schedules
 (
     scheduleID INTEGER PRIMARY KEY,
     lineName VARCHAR(50),
-    -- the transit line that this schedule is part of
     startStation INTEGER,
-    -- origin station for the schedule. can be any of the stops within the transit line
     endStation INTEGER,
-    -- destination station for the schedule. "
     tid INTEGER,
-    -- train assigned to this schedule
     departureTime DATETIME,
-    -- for startStation
     arrivalTime DATETIME,
-    -- for endStation
     FOREIGN KEY(lineName) REFERENCES transitlines(lineName),
     FOREIGN KEY(startStation) REFERENCES stations(sid),
     FOREIGN KEY(endStation) REFERENCES stations(sid),

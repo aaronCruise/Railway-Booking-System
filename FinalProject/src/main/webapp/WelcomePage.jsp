@@ -74,25 +74,5 @@
         <br/>
         <input type="submit" name="submit" value="Submit">
     </form>
-
-<%
-    if ("custRep".equalsIgnoreCase(role)) {
-%>
-    <h2>Customer Representative Tools</h2>
-    <form method="get" action="EditDeleteSchedules.jsp">
-        <input type="submit" value="Edit/Delete Train Schedules" />
-    </form>
-
-    <form method="get" action="StationSchedules.jsp">
-        <input type="submit" value="View Schedules by Station"/>
-    </form>
-
-    <form method="get" action="ReservationsByLineDate.jsp">
-        <input type="submit" value="View Reservations by Line and Date"/>
-    </form>
-<%
-    }
-} 
-%>
 </body>
 </html>
