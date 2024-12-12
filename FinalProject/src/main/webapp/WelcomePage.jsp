@@ -58,6 +58,11 @@
         <label><input type="radio" name="sortBy" value="arrivalTime"/> Arrival Time</label><br/>
         <label><input type="radio" name="sortBy" value="fare"/> Fare</label><br/>
     </form>
+    
+    <h2>Make a Reservation</h2>
+	<form method="post" action="makeReservation.jsp">
+		<input type="submit" value="Make Reservation"/>
+	</form>
 
     <h2>Questions</h2>
     <form method="post" action="QuestionList.jsp">
