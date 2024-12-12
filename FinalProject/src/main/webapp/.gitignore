@@ -1,0 +1,7 @@
+.DS_Store
+.metadata/
+Servers/
+*.log
+target/
+build/
+*.class
