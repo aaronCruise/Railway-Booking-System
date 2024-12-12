@@ -14,10 +14,10 @@
     <jsp:include page="LoginPage.jsp" />
 <%
     } else {
-        String username = (String) session.getAttribute("username");
         String role = (String) session.getAttribute("role");
+    }
 %>
-    <h1>Welcome, <%= username %></h1>
+    <h1>Welcome, <%=(String) session.getAttribute("username") %></h1>
     <h1>Online Railway Booking System</h1>
     <form method="post" action="logout.jsp">
         <input type="submit" value="Log Out" />
